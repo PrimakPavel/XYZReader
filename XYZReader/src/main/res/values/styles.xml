@@ -25,7 +25,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Detail">
-    </style>
-
 </resources>

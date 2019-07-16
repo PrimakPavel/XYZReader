@@ -17,11 +17,17 @@
 
 <resources>
 
-    <style name="AppTheme.Detail">
+   <!-- &lt;!&ndash; Base application theme. &ndash;&gt;
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowEnterTransition">@transition/slide_left</item>
         <item name="android:windowExitTransition">@transition/slide_left</item>
         <item name="android:windowTransitionBackgroundFadeDuration">200</item>
-       <!-- <item name="android:windowSharedElementEnterTransition">@transition/article_picture</item>-->
-    </style>
+        <item name="android:windowSharedElementEnterTransition">@transition/article_picture</item>
+        <item name="android:windowSharedElementExitTransition">@transition/article_picture</item>
+    </style>-->
 
 </resources>

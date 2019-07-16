@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui;
+package com.example.xyzreader.presentation.screens;
 
 
 import android.app.Activity;
