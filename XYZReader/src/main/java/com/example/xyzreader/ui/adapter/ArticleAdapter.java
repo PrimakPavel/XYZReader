@@ -1,8 +1,12 @@
 package com.example.xyzreader.ui.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
+import com.example.xyzreader.ui.ArticleListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -34,9 +39,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
     private Cursor mCursor;
     private Context mContext;
+    private Activity mActivity;
 
-    public ArticleAdapter(Cursor cursor) {
+    public ArticleAdapter(Cursor cursor, Activity activity) {
         mCursor = cursor;
+        mActivity = activity;
     }
 
     @Override
@@ -54,8 +61,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    bundle = ActivityOptions.makeSceneTransitionAnimation(mActivity
+                            /*, view.findViewById(R.id.thumbnail), "ArticleTransitionName"*//*view.findViewById(R.id.thumbnail).getTransitionName()*/
+                    ).toBundle();
+                }
                 mContext.startActivity(new Intent(Intent.ACTION_VIEW,
-                        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                                ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())))
+                        , bundle);
             }
         });
         return vh;
