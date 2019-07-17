@@ -38,6 +38,15 @@ public class MainActivity extends AppCompatActivity implements ShowSnackBarListe
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMainViewModel != null) {
+            mMainViewModel.getConnectionErrorData().removeObservers(this);
+            mMainViewModel.getConnectionLoadingData().removeObservers(this);
+        }
+    }
+
+    @Override
     public void showSnack(int messageRes) {
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), messageRes, Snackbar.LENGTH_LONG);
         snackbar.show();

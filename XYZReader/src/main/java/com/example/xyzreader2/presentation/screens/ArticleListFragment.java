@@ -94,6 +94,14 @@ public class ArticleListFragment extends Fragment implements ArticleListClickLis
         prepareSwipeRefreshLayout();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mMainViewModel != null) {
+            mMainViewModel.getConnectionErrorData().removeObservers(this);
+            mMainViewModel.getAllArticles().removeObservers(this);
+        }
+    }
 
     private void prepareRecyclerArticles() {
         mAdapter = new ArticleListAdapter(this);

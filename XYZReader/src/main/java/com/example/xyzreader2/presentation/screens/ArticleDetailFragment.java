@@ -1,11 +1,10 @@
 package com.example.xyzreader2.presentation.screens;
 
 
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,30 +22,28 @@ import com.example.xyzreader2.R;
 import com.example.xyzreader2.data.db.ArticleEntity;
 import com.example.xyzreader2.databinding.FragmentArticleDetailBinding;
 import com.example.xyzreader2.presentation.adapter.ArticleTextBodyAdapter;
-import com.example.xyzreader2.presentation.viewModels.MainViewModel;
+import com.example.xyzreader2.presentation.viewModels.ArticleViewModel;
+import com.example.xyzreader2.presentation.viewModels.ArticleViewModelFactory;
 import com.example.xyzreader2.utils.ArticleItemToArticleEntityConverter;
-import com.example.xyzreader2.utils.MyStringUtils;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
-import java.util.List;
 
 import static com.example.xyzreader2.utils.ArticleItemToArticleEntityConverter.START_OF_EPOCH;
 
 
 public class ArticleDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
-    private static final int BODY_DIVIDER = 2000;
-
-    private MainViewModel mMainViewModel;
+    public static final String SAVE_INSTANCE_BODY_LIST_STATE = "bodyListSate";
+    private Parcelable listState;
+    private ArticleViewModel mArticleViewModel;
     private FragmentArticleDetailBinding mBinding;
     private ArticleTextBodyAdapter mAdapterBody;
 
     private long mItemId;
 
 
-    public static ArticleDetailFragment newInstance(long itemId) {
+    static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
@@ -57,14 +54,12 @@ public class ArticleDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getActivity() != null) {
-            mMainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        }
         if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        if (getActivity() != null) {
+            ArticleViewModelFactory factory = new ArticleViewModelFactory(App.appExecutors.networkIO(), mItemId);
+            mArticleViewModel = ViewModelProviders.of(this, factory).get(ArticleViewModel.class);
         }
         setHasOptionsMenu(true);
     }
@@ -73,6 +68,9 @@ public class ArticleDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable(SAVE_INSTANCE_BODY_LIST_STATE);
+        }
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_detail, container, false);
         return mBinding.getRoot();
     }
@@ -80,7 +78,8 @@ public class ArticleDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMainViewModel.getArticleById(mItemId).observe(this, articleEntity -> {
+        prepareBodyRecycler();
+        mArticleViewModel.getArticleById().observe(this, articleEntity -> {
             if (articleEntity != null) {
                 bindViews(articleEntity);
                 mBinding.getRoot().setVisibility(View.VISIBLE);
@@ -88,7 +87,33 @@ public class ArticleDetailFragment extends Fragment {
                 mBinding.getRoot().setVisibility(View.GONE);
             }
         });
-        prepareBodyRecycler();
+        if (mArticleViewModel.getBodyElements() != null) {
+            mArticleViewModel.getBodyElements().observe(this, bodyElements -> {
+                mAdapterBody.updateList(bodyElements);
+                if (listState != null && mBinding.bodyRecycler.getLayoutManager() != null) {
+                    mBinding.bodyRecycler.getLayoutManager().onRestoreInstanceState(listState);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mArticleViewModel != null) {
+            mArticleViewModel.getArticleById().removeObservers(this);
+            if (mArticleViewModel.getBodyElements() != null) {
+                mArticleViewModel.getBodyElements().removeObservers(this);
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (mBinding.bodyRecycler.getLayoutManager() != null) {
+            outState.putParcelable(SAVE_INSTANCE_BODY_LIST_STATE, mBinding.bodyRecycler.getLayoutManager().onSaveInstanceState());
+        }
+        super.onSaveInstanceState(outState);
     }
 
     private void bindViews(ArticleEntity articleEntity) {
@@ -115,28 +140,10 @@ public class ArticleDetailFragment extends Fragment {
                             + "</font>"));
 
         }
-
-        App.appExecutors.networkIO().execute(() -> {
-            String bodyHtml = Html.fromHtml(articleEntity.getBody().replaceAll("(\r\n|\n)", "<br />")).toString();
-            List<String> bodyElements = MyStringUtils.divideString(bodyHtml, BODY_DIVIDER);
-            mBinding.bodyRecycler.post(() -> mAdapterBody.updateList(bodyElements));
-        });
-
-
         Picasso.get()
                 .load(articleEntity.getPhotoUrl())
-                .into(mBinding.photo, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startPostponedEnterTransition();
-                    }
+                .into(mBinding.photo);
 
-                    @Override
-                    public void onError(Exception e) {
-                        startPostponedEnterTransition();
-                    }
-
-                });
     }
 
     private void prepareBodyRecycler() {
@@ -146,5 +153,4 @@ public class ArticleDetailFragment extends Fragment {
         mBinding.bodyRecycler.setHasFixedSize(true);
         mBinding.bodyRecycler.setAdapter(mAdapterBody);
     }
-
 }

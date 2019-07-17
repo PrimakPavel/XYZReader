@@ -132,6 +132,12 @@ public class ArticlesDetailPagerFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mMainViewModel.getAllArticles().removeObservers(this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mBinding.pager.clearOnPageChangeListeners();

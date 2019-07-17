@@ -5,6 +5,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -24,6 +25,7 @@ public class MainViewModel extends AndroidViewModel {
     private final Executor ioExecutor = App.appExecutors.networkIO();
     private final MutableLiveData<Boolean> connectionErrorLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> connectionLoadingLiveData = new MutableLiveData<>();
+    private LiveData<List<ArticleEntity>> articlesLiveData;
     private final Context mContext;
 
     public MainViewModel(@NonNull Application application) {
@@ -77,8 +79,12 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<ArticleEntity>> getAllArticles() {
-        return App.dbRepo.loadAllArticles();
+        if (articlesLiveData == null) {
+            articlesLiveData = App.dbRepo.loadAllArticles();
+        }
+        return articlesLiveData;
     }
+
 
     public LiveData<ArticleEntity> getArticleById(long id) {
         return App.dbRepo.loadArticleById(id);
