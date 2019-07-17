@@ -114,12 +114,6 @@ public class ArticleListFragment extends Fragment implements ArticleListClickLis
 
     @Override
     public void onArticleItemClick(long articleId, ImageView imageView) {
-        /*FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                .addSharedElement(imageView, imageView.getTransitionName())
-                .build();
-        Bundle args = new Bundle();
-        args.putLong(ARG_ITEM_ID, articleId);
-        mNavController.navigate(R.id.actionDetails, args, null, extras);*/
         Bundle args = new Bundle();
         args.putLong(ARG_ITEM_ID, articleId);
         mNavController.navigate(R.id.actionArticlesDetailPagerFragment, args);
