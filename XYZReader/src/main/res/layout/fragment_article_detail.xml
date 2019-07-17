@@ -31,7 +31,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:transitionName="@string/article_transition_name"
                         app:layout_collapseMode="parallax" />
 
                     <View
@@ -42,6 +41,7 @@
                     <TextView
                         android:id="@+id/article_byline"
                         style="?android:attr/textAppearanceSmall"
+                        android:fontFamily="@font/rosario_reg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|bottom"
