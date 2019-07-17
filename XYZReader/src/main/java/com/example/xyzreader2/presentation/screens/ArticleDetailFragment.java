@@ -74,10 +74,6 @@ public class ArticleDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_detail, container, false);
-        mBinding.appBar.setNavigationOnClickListener(v -> {
-            if (getActivity() != null)
-                getActivity().onBackPressed();
-        });
         return mBinding.getRoot();
     }
 

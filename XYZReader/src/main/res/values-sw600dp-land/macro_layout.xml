@@ -1,5 +1,7 @@
 <resources>
+    <!-- list -->
+    <dimen name="list_standard_padding">64dp</dimen>
     <!-- detail -->
-
     <dimen name="detail_photo_height">600dp</dimen>
+    <dimen name="detail_expanded_title_margin_start">120dp</dimen>
 </resources>

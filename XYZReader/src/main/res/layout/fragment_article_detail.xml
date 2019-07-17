@@ -8,7 +8,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="192dp"
+            android:layout_height="@dimen/detail_photo_height"
             android:background="?colorPrimary">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -17,7 +17,7 @@
                 android:layout_height="match_parent"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
                 app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginStart="72dp"
+                app:expandedTitleMarginStart="@dimen/detail_expanded_title_margin_start"
                 app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -25,11 +25,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/photo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
+                        android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:transitionName="@string/article_transition_name"
                         app:layout_collapseMode="parallax" />
@@ -45,8 +44,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|bottom"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="4dp"
+                        android:layout_marginEnd="@dimen/detail_article_byline_margin_end"
+                        android:layout_marginBottom="@dimen/detail_article_byline_margin_bottom"
                         android:textColor="@color/colorTextPrimaryWhite" />
                 </FrameLayout>
 
@@ -56,9 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:contentInsetStart="72dp"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/arrow_left" />
+                    app:contentInsetStart="@dimen/detail_expanded_title_margin_start"
+                    app:layout_collapseMode="pin" />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -67,8 +65,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/body_recycler"
             android:layout_width="match_parent"
-            android:layout_margin="16dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/detail_body_bottom_margin"
+            android:layout_marginTop="@dimen/detail_body_top_margin"
+            android:layout_marginEnd="@dimen/detail_body_horiz_margin"
+            android:layout_marginStart="@dimen/detail_body_horiz_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

@@ -4,10 +4,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="@dimen/list_side_margin"
+        android:layout_marginTop="@dimen/list_side_margin"
+        android:layout_marginRight="@dimen/list_side_margin"
+        android:layout_marginBottom="@dimen/list_side_margin"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground">
@@ -35,10 +35,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="4"
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
+                android:paddingLeft="@dimen/list_standard_padding"
+                android:paddingTop="@dimen/list_standard_padding"
+                android:paddingRight="@dimen/list_standard_padding"
+                android:paddingBottom="@dimen/list_side_margin"
                 android:textColor="@color/colorTextPrimary" />
 
             <TextView
@@ -47,10 +47,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
+                android:maxLines="@integer/list_column_count"
+                android:paddingLeft="@dimen/list_standard_padding"
+                android:paddingRight="@dimen/list_standard_padding"
+                android:paddingBottom="@dimen/list_standard_padding"
                 android:textColor="@color/colorTextSecondary" />
         </LinearLayout>
 

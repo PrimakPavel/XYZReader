@@ -16,14 +16,14 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="@dimen/list_toolbar_side_margin"
-                android:layout_marginRight="@dimen/list_toolbar_side_margin"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/list_toolbar_side_margin"
+                    android:layout_marginRight="@dimen/list_toolbar_side_margin"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/logo" />
 
@@ -43,7 +43,7 @@
                 android:clipToPadding="false"
                 android:paddingLeft="@dimen/list_side_margin"
                 android:paddingRight="@dimen/list_side_margin"
-                android:paddingBottom="28dp"
+                android:paddingBottom="@dimen/list_bottom_padding"
                 android:scrollbarStyle="outsideOverlay" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

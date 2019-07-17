@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -7,7 +8,11 @@
 
         <TextView
             android:id="@+id/body_part"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/detail_body_text_size"
+            android:lineSpacingMultiplier="@dimen/detail_body_line_spacing_multiplier"
             android:layout_width="match_parent"
+            tools:text="Some body text"
             android:layout_height="wrap_content" />
     </FrameLayout>
 </layout>

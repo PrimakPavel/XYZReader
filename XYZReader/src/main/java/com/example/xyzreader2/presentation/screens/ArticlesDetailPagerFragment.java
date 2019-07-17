@@ -115,6 +115,11 @@ public class ArticlesDetailPagerFragment extends Fragment {
                 mBinding.pager.setCurrentItem(position, false);
             }
         });
+
+        mBinding.appBar.setNavigationOnClickListener(v -> {
+            if (getActivity() != null)
+                getActivity().onBackPressed();
+        });
     }
 
     @Override
