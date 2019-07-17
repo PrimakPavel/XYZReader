@@ -1,4 +1,4 @@
-package com.example.xyzreader2.remote;
+package com.example.xyzreader2.data.remote;
 
 import com.example.xyzreader2.data.pojo.ArticleItem;
 import com.google.gson.Gson;

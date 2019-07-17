@@ -11,8 +11,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.xyzreader2.App;
 import com.example.xyzreader2.data.db.ArticleEntity;
 import com.example.xyzreader2.data.pojo.ArticleItem;
-import com.example.xyzreader2.remote.Config;
-import com.example.xyzreader2.remote.RemoteEndpointUtil;
+import com.example.xyzreader2.data.remote.Config;
+import com.example.xyzreader2.data.remote.RemoteEndpointUtil;
 import com.example.xyzreader2.utils.ArticleItemToArticleEntityConverter;
 import com.example.xyzreader2.utils.NetConnectionUtil;
 
