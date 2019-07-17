@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ArticlesDetailPagerFragment extends Fragment {
 
-    private static final String ARG_ITEM_ID = "arg_item_id";
+    private static final String ARG_ITEM_ID = "item_id";
     private static final String SAVE_INSTANCE_SELECTED_ITEM_ID = "saveInstanceSelectedItemId";
     private long mStartedItemId;
 
@@ -52,7 +52,7 @@ public class ArticlesDetailPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
             mStartedItemId = getArguments().getLong(ARG_ITEM_ID);
         }
     }

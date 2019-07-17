@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.xyzreader2.R;
 import com.example.xyzreader2.data.db.ArticleEntity;
-import com.example.xyzreader2.databinding.ListItemArticleBinding;
+import com.example.xyzreader2.databinding.ItemArticleBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -45,7 +45,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        ListItemArticleBinding itemViewReviewBinding = DataBindingUtil.inflate(inflater, R.layout.list_item_article, parent, false);
+        ItemArticleBinding itemViewReviewBinding = DataBindingUtil.inflate(inflater, R.layout.item_article, parent, false);
         return new ArticleViewHolder(itemViewReviewBinding);
     }
 
@@ -61,10 +61,10 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     }
 
     class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final ListItemArticleBinding binding;
+        private final ItemArticleBinding binding;
         private static final String EMPTY = "";
 
-        ArticleViewHolder(@NonNull ListItemArticleBinding articleBinding) {
+        ArticleViewHolder(@NonNull ItemArticleBinding articleBinding) {
             super(articleBinding.getRoot());
             this.binding = articleBinding;
             articleBinding.getRoot().setOnClickListener(this);
@@ -114,7 +114,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 }
             }
         }
-
     }
 
 }

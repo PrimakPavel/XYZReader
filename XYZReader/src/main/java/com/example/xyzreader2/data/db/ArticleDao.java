@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface ArticleDao {
 
-    @Query("SELECT * FROM articles")
+    @Query("SELECT * FROM articles ORDER BY published_date DESC")
     LiveData<List<ArticleEntity>> loadAllArticles();
 
     @Query("SELECT* FROM articles WHERE id = :articleId")
