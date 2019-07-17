@@ -1,5 +1,5 @@
 package com.example.xyzreader2;
 
-public interface ShowSnackBarListener {
+interface ShowSnackBarListener {
     void showSnack(int messageRes);
 }

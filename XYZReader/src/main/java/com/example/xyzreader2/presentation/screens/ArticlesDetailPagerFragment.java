@@ -94,10 +94,13 @@ public class ArticlesDetailPagerFragment extends Fragment {
             }
         });
 
-        mBinding.shareFab.setOnClickListener(view1 -> startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-                .setType("text/plain")
-                .setText("Some sample text")
-                .getIntent(), getString(R.string.action_share))));
+        mBinding.shareFab.setOnClickListener(view1 -> {
+            if (getActivity() != null)
+                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
+                        .setType("text/plain")
+                        .setText("Some sample text")
+                        .getIntent(), getString(R.string.action_share)));
+        });
 
 
         mMainViewModel.getAllArticles().observe(this, articleEntities -> {
@@ -135,7 +138,7 @@ public class ArticlesDetailPagerFragment extends Fragment {
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

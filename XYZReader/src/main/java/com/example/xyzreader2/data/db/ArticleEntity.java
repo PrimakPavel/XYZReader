@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class ArticleEntity {
 
     @PrimaryKey()
-    public long id;
+    private long id;
 
     @ColumnInfo(name = "title")
     private String title;

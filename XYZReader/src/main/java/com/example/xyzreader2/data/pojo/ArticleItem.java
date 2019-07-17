@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class ArticleItem {
 
     @SerializedName("id")
-    public long id;
+    private long id;
 
     @SerializedName("title")
     private String title;

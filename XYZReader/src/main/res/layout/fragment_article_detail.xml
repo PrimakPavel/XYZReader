@@ -69,8 +69,8 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/detail_body_bottom_margin"
             android:layout_marginTop="@dimen/detail_body_top_margin"
-            android:layout_marginEnd="@dimen/detail_body_horiz_margin"
-            android:layout_marginStart="@dimen/detail_body_horiz_margin"
+            android:layout_marginEnd="@dimen/detail_body_horizontal_margin"
+            android:layout_marginStart="@dimen/detail_body_horizontal_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

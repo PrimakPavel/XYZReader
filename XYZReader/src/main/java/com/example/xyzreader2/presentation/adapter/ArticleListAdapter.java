@@ -27,7 +27,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     // Use default locale format
     private List<ArticleEntity> mArticles;
-    private ArticleListClickListener clickListener;
+    private final ArticleListClickListener clickListener;
     private Context mContext;
 
 

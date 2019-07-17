@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationContentDescription="@string/up"
             app:navigationIcon="@drawable/arrow_left" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,10 +27,10 @@
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="@dimen/fab_margin"
             android:clickable="true"
-            android:elevation="@dimen/fab_elevation"
-            android:translationZ="@dimen/fab_press_translation_z"
             android:contentDescription="@string/action_share"
+            android:elevation="@dimen/fab_elevation"
             android:focusable="true"
+            android:translationZ="@dimen/fab_press_translation_z"
             app:borderWidth="0dp"
             app:fabSize="normal"
             app:srcCompat="@drawable/ic_baseline_share" />

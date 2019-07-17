@@ -4,5 +4,5 @@
     <!-- detail -->
     <dimen name="detail_photo_height">224dp</dimen>
     <dimen name="detail_expanded_title_margin_start">62dp</dimen>
-    <dimen name="detail_body_horiz_margin">112dp</dimen>
+    <dimen name="detail_body_horizontal_margin">112dp</dimen>
 </resources>

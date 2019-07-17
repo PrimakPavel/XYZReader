@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 public class MainViewModel extends AndroidViewModel {
-    private Executor ioExecutor = App.appExecutors.networkIO();
-    private MutableLiveData<Boolean> connectionErrorLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> connectionLoadingLiveData = new MutableLiveData<>();
-    private Context mContext;
+    private final Executor ioExecutor = App.appExecutors.networkIO();
+    private final MutableLiveData<Boolean> connectionErrorLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> connectionLoadingLiveData = new MutableLiveData<>();
+    private final Context mContext;
 
     public MainViewModel(@NonNull Application application) {
         super(application);

@@ -37,7 +37,7 @@ import static com.example.xyzreader2.utils.ArticleItemToArticleEntityConverter.S
 
 public class ArticleDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
-    public static final int BODY_DIVIDER = 2000;
+    private static final int BODY_DIVIDER = 2000;
 
     private MainViewModel mMainViewModel;
     private FragmentArticleDetailBinding mBinding;
