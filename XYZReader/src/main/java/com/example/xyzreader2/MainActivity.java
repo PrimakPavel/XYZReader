@@ -1,6 +1,8 @@
 package com.example.xyzreader2;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +53,5 @@ public class MainActivity extends AppCompatActivity implements ShowSnackBarListe
 
         }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
     }
-
 
 }

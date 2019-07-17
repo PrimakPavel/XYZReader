@@ -28,6 +28,7 @@
             android:clickable="true"
             android:elevation="@dimen/fab_elevation"
             android:translationZ="@dimen/fab_press_translation_z"
+            android:contentDescription="@string/action_share"
             android:focusable="true"
             app:borderWidth="0dp"
             app:fabSize="normal"

@@ -25,6 +25,5 @@
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextPrimaryWhite">#FFFFFF</color>
     <color name="colorTextSecondary">#757575</color>
-    <color name="colorBlack">#000000</color>
     <color name="ltgray">#ffe0e0e0</color>
 </resources>

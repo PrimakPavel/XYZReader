@@ -3,12 +3,16 @@ package com.example.xyzreader2.presentation.screens;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,14 +39,36 @@ public class ArticleListFragment extends Fragment implements ArticleListClickLis
     private NavController mNavController;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (getActivity() != null) {
+            setHasOptionsMenu(true);
             mMainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         }
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_list, container, false);
+        prepareActionBar();
         // Inflate the layout for this fragment
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.refresh) {
+            mMainViewModel.prepareDbFromNetworkData(true);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -102,5 +128,15 @@ public class ArticleListFragment extends Fragment implements ArticleListClickLis
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+    }
+
+    private void prepareActionBar() {
+        if (getActivity() instanceof AppCompatActivity) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            activity.setSupportActionBar(mBinding.toolbar);
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+        }
     }
 }
