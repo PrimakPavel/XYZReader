@@ -18,6 +18,12 @@ public class ArticleViewModelFactory extends ViewModelProvider.NewInstanceFactor
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ArticleViewModel(mExecutor,mId);
+        if (modelClass.isAssignableFrom(ArticleViewModel.class)) {
+            return (T) new ArticleViewModel(mExecutor,mId);
+        }
+        throw new IllegalArgumentException("Unknown ViewModel class");
+
+
+
     }
 }
