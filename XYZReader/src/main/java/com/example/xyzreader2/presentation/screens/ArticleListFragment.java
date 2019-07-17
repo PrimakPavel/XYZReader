@@ -93,7 +93,7 @@ public class ArticleListFragment extends Fragment implements ArticleListClickLis
 
     @Override
     public void onRefresh() {
-        mMainViewModel.updateDbFromNetworkData();
+        mMainViewModel.prepareDbFromNetworkData(true);
     }
 
     private void prepareSwipeRefreshLayout() {

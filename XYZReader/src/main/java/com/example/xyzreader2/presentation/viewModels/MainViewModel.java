@@ -1,8 +1,12 @@
 package com.example.xyzreader2.presentation.viewModels;
 
+import android.app.Application;
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.xyzreader2.App;
 import com.example.xyzreader2.data.db.ArticleEntity;
@@ -10,41 +14,55 @@ import com.example.xyzreader2.data.pojo.ArticleItem;
 import com.example.xyzreader2.remote.Config;
 import com.example.xyzreader2.remote.RemoteEndpointUtil;
 import com.example.xyzreader2.utils.ArticleItemToArticleEntityConverter;
+import com.example.xyzreader2.utils.NetConnectionUtil;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
     private Executor ioExecutor = App.appExecutors.networkIO();
     private MutableLiveData<Boolean> connectionErrorLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> connectionLoadingLiveData = new MutableLiveData<>();
+    private Context mContext;
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        mContext = application.getApplicationContext();
+    }
 
     public LiveData<Boolean> getConnectionErrorData() {
         return connectionErrorLiveData;
     }
 
-    public void initDbFromNetworkData() {
-        connectionErrorLiveData.setValue(false);
-        ioExecutor.execute(() -> {
-            if (App.dbRepo.loadArticleCount() == 0) {
-                try {
-                    saveAllToDb(loadDataFromNetwork());
-                } catch (IOException e) {
-                    connectionErrorLiveData.postValue(true);
-                }
-            }
-        });
+    public LiveData<Boolean> getConnectionLoadingData() {
+        return connectionLoadingLiveData;
     }
 
-    public void updateDbFromNetworkData() {
+    public void prepareDbFromNetworkData(boolean isUpdate) {
         connectionErrorLiveData.setValue(false);
+        connectionLoadingLiveData.setValue(true);
         ioExecutor.execute(() -> {
-            App.dbRepo.clearTableSync();
-            try {
-                saveAllToDb(loadDataFromNetwork());
-            } catch (IOException e) {
-                connectionErrorLiveData.postValue(true);
+            if (isUpdate) {
+                App.dbRepo.clearTableSync();
             }
+            if (App.dbRepo.loadArticleCount() == 0) {
+                //Check Internet connection
+                if (!NetConnectionUtil.isNetConnection(mContext)) {
+                    connectionErrorLiveData.postValue(true);
+                    connectionLoadingLiveData.postValue(false);
+                } else {
+                    //Save all data to DB
+                    try {
+                        saveAllToDb(loadDataFromNetwork());
+                    } catch (IOException e) {
+                        connectionErrorLiveData.postValue(true);
+                    } finally {
+                        connectionLoadingLiveData.postValue(false);
+                    }
+                }
+            }
+            connectionLoadingLiveData.postValue(false);
         });
     }
 
@@ -65,4 +83,5 @@ public class MainViewModel extends ViewModel {
     public LiveData<ArticleEntity> getArticleById(long id) {
         return App.dbRepo.loadArticleById(id);
     }
+
 }
